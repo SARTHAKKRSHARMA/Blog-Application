@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title_block %}
+    Search Result
+{% endblock %}
+
+{% block body_block %}
+    <h1>Here are the results</h1>
+    <hr>
+    <div class="container" >
+        <h1><ol>
+            {% for acc in a %}
+                <li><a href="{% url 'blog:published_blog' user_name=acc.username %}">{{acc.username}}</a>       </li>
+          {% endfor %}
+        </ol></h1>
+    </div>
+    
+{% endblock %}

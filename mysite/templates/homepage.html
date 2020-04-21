@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title_block %}
+    HomePage
+{% endblock %}
+
+{% block start_block %}
+    <h1>Welcome to our Blogging Website</h1>
+    {% if user.is_authenticated %}
+    <div class="jumbotron " >
+        <h3>You are just one step away from living your dream of writing blogs.</h3>
+        <h4>Click <a href="{% url 'blog:create_new' %}">here</a>  to create new blog.</h4>
+    </div>
+    {% else %}
+    <div class="jumbotron">
+        <h2>If you think Blogging is your passion then hell yeah you are at the right place.</h2>
+        <h3>To register yourself Click <a href="{% url 'registration:registration' %}">here</a></h3>
+        <h3>And if you are already registered Click <a href="{% url 'registration:request_login' %}">here</a> to login.</h3>
+    </div>
+    
+    {% endif %}  
+    {% endblock %}

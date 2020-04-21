@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title_block %}
+    {{Blog_Details.title}}
+{% endblock %}
+
+{% block body_block %}
+    <h1>Here are the details of the Post</h1>
+    <hr>
+    <div class="container">
+        <div class="jumbotron">
+            <h2>Title: <i>{{Blog_Details.title}}</i></h2>
+            <h5>Body: <b>{{Blog_Details.body}}</b> </h5>
+            {% if Blog_Details.pub_date %}
+                <h7>Date of Publication: {{Blog_Details.pub_date}}</h7>
+            {% else %}
+                <h7>Date of Creation: {{Blog_Details.creation_date}}</h7>
+            {% endif %}
+            <hr>
+            <p><a href="{% url 'blog:list_of_likes' id=Blog_Details.id %}">{{Blog_Details.likes}}</a> <a href="{% url 'blog:like' id=Blog_Details.id %}">Like</a>   and   <a href="{% url 'blog:list_of_dislikes' id=Blog_Details.id %}">{{Blog_Details.dislikes}}</a> <a href="{% url 'blog:dislike' id=Blog_Details.id %}"> Dislike</a></p>
+        </div>
+    </div>
+    <hr>
+    <h2><b>Comment:</b></h2>
+    <form action="{% url 'blog:add_comment' title=Blog_Details.id %}" method="post" style="display: inline;">
+        {% csrf_token %} 
+        <div class="form-group">
+            <input type="text" name='comment' placeholder="Please enter your comments here" style="row-gap: inherit;">   
+            <input type="submit" value="Comment">
+        </div>    
+    </form>
+    <hr>
+
+    <div class="jumbotron">
+        {% for acc in Blog_Details.comments.all %}
+        <h5><a href="{% url 'blog:published_blog' user_name=acc.author %}">{{acc.author}}</b></a>: <b>{{acc.body}}</h5>
+        <h7>Comment was made on:{{acc.creation_date}}</h7>
+        <hr>
+    {% endfor %}
+    </div>
+    
+{% endblock %}

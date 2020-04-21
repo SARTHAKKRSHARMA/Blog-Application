@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title_block %}
+    Blog Published by {{first_name}}
+{% endblock %}
+
+{% block body_block %}
+    <div class="container">    <h1>Here are blogs published by -:<i> {{first_name}} {{a.last_name}}</i></h1> 
+    </div>
+    <hr>
+    <h2>If you want to know more about <i> {{first_name}} {{a.last_name}}</i> Click <a href="{% url 'blog:details' user_name=a.username  %}">Here</a></h2>
+    <hr>
+    
+            {% for acc in a.author.all %}
+        {% if acc.pub_date %}
+        <div class="container">
+            <div class="jumbotron" >
+                <h2><li><a href="{% url 'blog:detail' id=acc.id %}">{{acc.title}}</a></li></h2>
+            <p>This post has {{acc.likes}} likes and {{acc.dislikes}} dislikes </p>
+            <h3>Date of Publication: {{acc.pub_date}}</h3>
+        {% endif %}
+            </div>
+        </div>
+        
+        <hr>
+        
+    
+    {% endfor %}
+    
+{% endblock %}

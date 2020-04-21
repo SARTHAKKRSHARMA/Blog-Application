@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title_block %}
+    Create new blog
+{% endblock %}
+{% block body_block %}
+    <form action="{% url 'blog:c_create_new' %}" method="post">
+        <div class="container" >
+            <div class="jumbotron">
+                <h2><b>Write you blog here</b></h2>
+                {% csrf_token %}
+                    {{form.as_p }}
+                    <input type="submit" class="btn btn-primary" value="save">
+            </div>
+        </div>
+        
+    </form>
+{% endblock %}

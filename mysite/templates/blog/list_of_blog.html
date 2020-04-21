@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title_block %}
+    Drafts
+{% endblock %}
+
+
+
+{% block body_block %}
+    <h2>Here are list of all your blogs that you haven't published</h2>
+    <hr>
+    {% for acc in a.author.all %}
+        {% if not acc.pub_date %}
+            <div class="container">
+                <div class="jumbotron">
+                    <ul>
+                        <h2><li><a href="{% url 'blog:detail' id=acc.id %}">{{acc.title}}</a></li></h2>
+    
+                        <form action="publish/{{acc.id}}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-primary" value="Publish">
+                        </form>
+    
+                        <form action="delete/{{acc.id}}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-danger" value="Delete">
+                        </form>
+                        <form action="update/{{acc.id}}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-dark" value="Update">
+                        </form>
+                        <hr>   
+                    </ul>
+                </div>
+            </div>
+        {% endif %}             
+    {% endfor %}
+
+    <h3>Click <a href="{% url 'blog:create_new' %}">here</a> to create new blog</h3>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title_block %}
+    Details of {{a.first_name}}
+{% endblock %}
+{% block body_block %}
+<div class="container" >
+    <div class="jumbotron" >
+        <h3><i>Here are details about {{a.first_name}}</i></h3>
+        <ol>
+            <li>First Name: <i>{{a.first_name}}</i> </li>
+            <li>Last Name : <i>{{a.last_name}}</i> </li>
+            <li>Username : <i>{{a.username}}</i> </li>
+            {% for acc in a.user.all %}
+            <li>Email: <i>{{acc.email}}</i> </li>
+            <li>Bio: <i>{{acc.bio}}</i> </li>
+            {% endfor %}
+            <li>Date Joined: <i>{{a.date_joined}}</i> </li>
+            <li>Last Login: <i>{{a.last_login}}</i> </li>
+            <li>This user has published {{x}} posts till now.</li>
+        </ol>
+    </div>
+</div>
+
+{% endblock %}
